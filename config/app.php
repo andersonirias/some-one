@@ -230,7 +230,7 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => 'someone',
-            'password' => 'Rxe6v@01',
+            'password' => '',
             'database' => 'someone',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
