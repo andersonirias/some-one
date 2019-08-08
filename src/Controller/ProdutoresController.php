@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use Cake\Mailer\Email;
 use Cake\Auth\DefaultPasswordHasher;
 
@@ -65,30 +63,18 @@ class ProdutoresController extends AppController
                        $produtor['email'] . '/' . 
                        $produtor['status'];
 
-              require_once(ROOT . DS . 'vendor' . DS  . 'autoload.php');
+              $email = new Email('default');
+              $email->from(['someone.eventos@gmail.com' => 'Some One'])
+                ->to($produtor['email'])
+                ->emailFormat('html')
+                ->subject('Confirmação de cadastro')
+                ->send('Prezado(a) ' .  $this->request->data['nome'] . '<br/><br/>
+                  Bem vindo(a) ao Some One Eventos, <a href="' . $link . '">Clique Aqui</a>
+                  para concluir o cadastro como produtor'
+              );
 
-              $mail = new PHPMailer(true); 
-
-              $mail->isSMTP();
-              $mail->CharSet = 'UTF-8';
-              $mail->Host = 'smtp.gmail.com';
-              $mail->Port = 587;
-              $mail->SMTPSecure = 'tls';
-              $mail->SMTPAuth = true;
-              $mail->Username = "someone.eventos@gmail.com";
-              $mail->Password = "123.qwe!@#";
-              $mail->setFrom('someone.eventos@gmail.com', 'Some One');
-              $mail->addAddress($produtor['email']);
-              $mail->Subject = 'Confirmação de cadastro';
-              $mail->msgHTML('Prezado(a) ' .  $this->request->data['nome'] . '<br/><br/>
-                              Bem vindo(a) ao Some One Eventos, <a href="' . $link . '">Clique Aqui</a> para concluir o cadastro como produtor');
-
-              if ($mail->send()) {
-
-                $this->Flash->success(__('Cadastro realizado com sucesso!'));
-                return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
-
-              }
+              $this->Flash->success(__('Cadastro realizado com sucesso!'));
+              return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
 
             }
 

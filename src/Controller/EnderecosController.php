@@ -21,10 +21,7 @@ class EnderecosController extends AppController
         $this->viewBuilder()->layout('painel');
 
         $produtorId = $this->request->session()->read('Auth.User.id');
-
-        $enderecosQuery = $this->Enderecos->find('all')
-                                 ->where(['produtor' => $produtorId ]);
-
+        $enderecosQuery = $this->Enderecos->find('all')->where(['produtor' => $produtorId ]);
         $enderecos = $this->paginate($enderecosQuery);
 
         $this->set(compact('enderecos'));
@@ -43,14 +40,7 @@ class EnderecosController extends AppController
         $this->viewBuilder()->layout('painel');
 
         $produtorId = $this->request->session()->read('Auth.User.id');
-
-        $endereco = $this->Enderecos->find()
-                               ->where([
-                                    'id' => $id,
-                                    'produtor' =>  $produtorId
-                                    ])
-                               ->first();
-
+        $endereco = $this->Enderecos->find()->where(['id' => $id, 'produtor' =>  $produtorId])->first();
 
         $this->set('endereco', $endereco);
         $this->set('_serialize', ['endereco']);
@@ -71,7 +61,6 @@ class EnderecosController extends AppController
         $endereco = $this->Enderecos->newEntity();
 
         if ($this->request->is('post')) {
-
             $endereco = $this->Enderecos->patchEntity($endereco, $this->request->data);
 
             $endereco['alteracao'] = date("Y-m-d H:i:s");
@@ -80,7 +69,6 @@ class EnderecosController extends AppController
 
             if ($this->Enderecos->save($endereco)) {
                 $this->Flash->success(__('Endereço cadastrado com sucesso!'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Falha ao cadastrar endereço.'));
@@ -101,14 +89,7 @@ class EnderecosController extends AppController
         $this->viewBuilder()->layout('painel');
 
         $produtorId = $this->request->session()->read('Auth.User.id');
-
-        $endereco = $this->Enderecos->find()
-                               ->where([
-                                    'id' => $id,
-                                    'produtor' =>  $produtorId
-                                    ])
-                               ->first();
-
+        $endereco = $this->Enderecos->find()->where(['id' => $id,'produtor' =>  $produtorId])->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $endereco = $this->Enderecos->patchEntity($endereco, $this->request->data);
@@ -132,17 +113,10 @@ class EnderecosController extends AppController
      */
     public function delete($id = null)
     {
-        
         $this->request->allowMethod(['post', 'delete']);
 
         $produtorId = $this->request->session()->read('Auth.User.id');
-
-        $endereco = $this->Enderecos->find()
-                               ->where([
-                                    'id' => $id,
-                                    'produtor' =>  $produtorId
-                                    ])
-                               ->first();
+        $endereco = $this->Enderecos->find()->where(['id' => $id, 'produtor' =>  $produtorId])->first();
         
         if ($this->Enderecos->delete($endereco)) {
             $this->Flash->success(__('Endereço deletado com sucesso.'));

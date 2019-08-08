@@ -48,7 +48,7 @@ class AppController extends Controller
                         'controller' => 'Pages',
                         'action' => 'display'
                  ],
-                'authError' => 'Did you really think you are allowed to see that?',
+                'authError' => 'Você não tem permissão para acessar essa página',
                 'authenticate' => [
                         'Form' => [
                                 'fields' => ['username' => 'email',

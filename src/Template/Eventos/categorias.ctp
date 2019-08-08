@@ -48,16 +48,12 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-     <?php 
+    <?php 
+        $i = 9 - $i;
 
-                $i = 9 - $i;
-
-                while($i > 0){ 
-
-            ?>
-                <br/>
-            <?php 
-                $i--;
-                } 
-            ?>
+        while($i > 0){ 
+            echo '<br/>';
+            $i--;
+        }
+    ?>
 </div>

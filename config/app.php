@@ -180,10 +180,10 @@ return [
         'default' => [
             'className' => 'Mail',
             // The following keys are used in SMTP transports
-            'host' => 'ssl://smtp.gmail.com',
-            'port' => 465,
-            'username' => 'someone.eventos@gmail.com',
-            'password' => '123.qwe!@#',
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'username' => 'email',
+            'password' => '',
             'timeout' => 30,
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
